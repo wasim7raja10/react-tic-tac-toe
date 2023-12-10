@@ -6,22 +6,23 @@ import Moves from "./Moves";
 function App() {
 	const [history, setHistory] = useState([Array(9).fill(null)]);
 	const [moveNumber, setMoveNumber] = useState(0);
-	const currentBoardState = history[history.length - 1];
+	const currentBoardState = history[moveNumber];
 
 	function handlePlay(nextBoardState: string[]) {
-		setHistory([...history, nextBoardState]);
-    setMoveNumber(moveNumber + 1);
+		const newHistory = history.slice(0, moveNumber + 1);
+		newHistory.push(nextBoardState);
+		setHistory(newHistory);
+		setMoveNumber(moveNumber + 1);
 	}
 
-  function handleResetGame() {
-    setHistory([Array(9).fill(null)]);
-    setMoveNumber(0);
-  }
+	function handleResetGame() {
+		setHistory([Array(9).fill(null)]);
+		setMoveNumber(0);
+	}
 
-  function handleJumpTo(move: number) {
-    setMoveNumber(move);
-    setHistory(history.slice(0, move + 1));
-  }
+	function handleJumpTo(move: number) {
+		setMoveNumber(move);
+	}
 
 	return (
 		<>
@@ -33,7 +34,9 @@ function App() {
 						onPlay={handlePlay}
 						currentMoveNumber={moveNumber}
 					/>
-          <button onClick={handleResetGame} className="reset">RESET GAME</button>
+					<button onClick={handleResetGame} className="reset">
+						RESET GAME
+					</button>
 				</div>
 
 				{/* Move */}

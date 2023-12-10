@@ -7,7 +7,7 @@ function Moves({
 }) {
 	return (
 		<div>
-			<h6>Moves</h6>
+			<h6 style={{ fontSize: "1rem" }}>Moves</h6>
 			<ul className="list">
 				{Array(moveNumber + 1)
 					.fill(null)
