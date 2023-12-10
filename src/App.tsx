@@ -17,7 +17,12 @@ function App() {
     setHistory([Array(9).fill(null)]);
     setMoveNumber(0);
   }
-  
+
+  function handleJumpTo(move: number) {
+    setMoveNumber(move);
+    setHistory(history.slice(0, move + 1));
+  }
+
 	return (
 		<>
 			<div className="flex gap">
@@ -33,7 +38,7 @@ function App() {
 
 				{/* Move */}
 				<div>
-					<Moves />
+					<Moves onJumpTo={handleJumpTo} moveNumber={moveNumber} />
 				</div>
 			</div>
 		</>
