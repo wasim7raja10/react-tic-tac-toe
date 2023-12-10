@@ -14,9 +14,13 @@ function Moves({
 					.map((_, move) => {
 						return (
 							<li key={move}>
-								<button onClick={() => onJumpTo(move)}>
-									{move === 0 ? "Go to game start" : `Go to move #${move}`}
-								</button>
+								{move === moveNumber ? (
+									<b>{`Move #${move}`}</b>
+								) : (
+									<button onClick={() => onJumpTo(move)}>
+										{move === 0 ? "Go to game start" : `Go to move #${move}`}
+									</button>
+								)}
 							</li>
 						);
 					})}
