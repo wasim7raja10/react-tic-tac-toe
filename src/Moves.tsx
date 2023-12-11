@@ -1,11 +1,13 @@
+import { BoardState } from "./lib/types";
+
 function History({
 	onJumpTo,
-	moveNumber,
+	history,
 }: {
 	onJumpTo: (move: number) => void;
-	moveNumber: number;
+	history: BoardState[];
 }) {
-	if (moveNumber === 0) {
+	if (history[history.length - 1].moveLocation === null) {
 		return <h6>GAME not started</h6>;
 	}
 	return (
@@ -14,12 +16,11 @@ function History({
 				<h6 style={{ fontSize: "1rem" }}>History</h6>
 			</div>
 			<ul className="list">
-				{Array(moveNumber + 1)
-					.fill(null)
+				{history
 					.map((_, move) => {
 						return (
 							<li key={move}>
-								{move === moveNumber ? (
+								{move === (history.length - 1) ? (
 									<b>{`Move #${move}`}</b>
 								) : (
 									<button onClick={() => onJumpTo(move)}>

@@ -47,7 +47,7 @@ function App() {
 
 				{/* Move */}
 				<div>
-					<History onJumpTo={handleJumpTo} moveNumber={moveNumber} />
+					<History onJumpTo={handleJumpTo} history={history} />
 				</div>
 			</div>
 		</>
