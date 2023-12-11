@@ -1,11 +1,13 @@
 import { useState } from "react";
-import "./App.css";
+
 import Board from "./Board";
 import History from "./Moves";
+import "./App.css";
 
 function App() {
 	const [history, setHistory] = useState([Array(9).fill(null)]);
 	const [moveNumber, setMoveNumber] = useState(0);
+
 	const currentBoardState = history[moveNumber];
 	const currentPlayer = moveNumber % 2 === 0 ? "X" : "O";
 
