@@ -1,4 +1,4 @@
-import { calculateWinner } from "./lib/helper";
+import { calculateWinner, getStatus } from "./lib/helper";
 import { BoardState, MoveLocation } from "./lib/types";
 
 function Board({
@@ -22,8 +22,7 @@ function Board({
 		onPlay(nextBoardState);
 	}
 
-	const winner = calculateWinner(currentBoardState);
-	const status = winner ? `Winner: ${winner}` : `Next player: ${currentPlayer}`;
+	const status = getStatus(currentBoardState, currentPlayer);
 
 	return (
 		<>

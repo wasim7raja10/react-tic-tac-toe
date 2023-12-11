@@ -17,3 +17,19 @@ export const calculateWinner = (squares: string[]): string | null => {
 	}
 	return null;
 };
+
+export const calculateDraw = (squares: string[]): boolean => {
+	return squares.every((square) => square !== null);
+};
+
+export const getStatus = (squares: string[], currentPlayer: string): string => {
+	const winner = calculateWinner(squares);
+	const isDraw = calculateDraw(squares);
+	if (winner) {
+		return `Winner: ${winner}`;
+	} else if (isDraw) {
+		return `Draw`;
+	} else {
+		return `Next player: ${currentPlayer}`;
+	}
+};
