@@ -1,13 +1,18 @@
-function Moves({
+function History({
 	onJumpTo,
 	moveNumber,
 }: {
 	onJumpTo: (move: number) => void;
 	moveNumber: number;
 }) {
+	if (moveNumber === 0) {
+		return <h6>GAME not started</h6>;
+	}
 	return (
 		<div>
-			<h6 style={{ fontSize: "1rem" }}>Moves</h6>
+			<div>
+				<h6 style={{ fontSize: "1rem" }}>History</h6>
+			</div>
 			<ul className="list">
 				{Array(moveNumber + 1)
 					.fill(null)
@@ -29,4 +34,4 @@ function Moves({
 	);
 }
 
-export default Moves;
+export default History;

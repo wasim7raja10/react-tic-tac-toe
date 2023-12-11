@@ -3,25 +3,23 @@ import { calculateWinner } from "./lib/helper";
 function Board({
 	currentBoardState,
 	onPlay,
-	currentMoveNumber,
+	currentPlayer,
 }: {
 	currentBoardState: string[];
 	onPlay: (nextBoardState: string[]) => void;
-	currentMoveNumber: number;
+	currentPlayer: string;
 }) {
 	function handleClick(index: number) {
 		if (currentBoardState[index] || calculateWinner(currentBoardState)) {
 			return;
 		}
 		const nextBoardState = [...currentBoardState];
-		nextBoardState[index] = currentMoveNumber % 2 === 0 ? "X" : "O";
+		nextBoardState[index] = currentPlayer;
 		onPlay(nextBoardState);
 	}
 
 	const winner = calculateWinner(currentBoardState);
-	const status = winner
-		? `Winner: ${winner}`
-		: `Next player: ${currentMoveNumber % 2 === 0 ? "X" : "O"}`;
+	const status = winner ? `Winner: ${winner}` : `Next player: ${currentPlayer}`;
 
 	return (
 		<>

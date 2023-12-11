@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./App.css";
 import Board from "./Board";
-import Moves from "./Moves";
+import History from "./Moves";
 
 function App() {
 	const [history, setHistory] = useState([Array(9).fill(null)]);
 	const [moveNumber, setMoveNumber] = useState(0);
 	const currentBoardState = history[moveNumber];
+	const currentPlayer = moveNumber % 2 === 0 ? "X" : "O";
 
 	function handlePlay(nextBoardState: string[]) {
 		const newHistory = history.slice(0, moveNumber + 1);
@@ -32,7 +33,7 @@ function App() {
 					<Board
 						currentBoardState={currentBoardState}
 						onPlay={handlePlay}
-						currentMoveNumber={moveNumber}
+						currentPlayer={currentPlayer}
 					/>
 					<button onClick={handleResetGame} className="reset">
 						RESET GAME
@@ -41,7 +42,7 @@ function App() {
 
 				{/* Move */}
 				<div>
-					<Moves onJumpTo={handleJumpTo} moveNumber={moveNumber} />
+					<History onJumpTo={handleJumpTo} moveNumber={moveNumber} />
 				</div>
 			</div>
 		</>
