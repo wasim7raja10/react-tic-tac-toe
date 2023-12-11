@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BoardState } from "./lib/types";
 
 function History({
@@ -9,6 +9,11 @@ function History({
 	history: BoardState[];
 }) {
 	const [order, setOrder] = useState<"ascending" | "descending">("ascending");
+	const [currentMoveIndex, setCurrentMoveIndex] = useState(history.length - 1);
+
+	useEffect(() => {
+		setCurrentMoveIndex(history.length - 1);
+	}, [history]);
 
 	if (history[history.length - 1].moveLocation === null) {
 		return <h6>GAME not started</h6>;
@@ -22,7 +27,8 @@ function History({
 		order === "ascending" ? history : [...history].reverse();
 
 	const islatestMove = (moveIndex: number) => {
-		return moveIndex === history.length - 1;
+		console.log(moveIndex, currentMoveIndex);
+		return moveIndex === currentMoveIndex;
 	};
 
 	const moveIndex = (index: number) => {
@@ -47,7 +53,12 @@ function History({
 							{islatestMove(moveIndex(index)) ? (
 								<b>{`Move #${moveIndex(index)} - (${moveLocation})`}</b>
 							) : (
-								<button onClick={() => onJumpTo(moveIndex(index))}>
+								<button
+									onClick={() => {
+										setCurrentMoveIndex(moveIndex(index));
+										onJumpTo(moveIndex(index));
+									}}
+								>
 									{moveIndex(index) === 0
 										? "Go to game start"
 										: `Go to move #${moveIndex(index)} - (${moveLocation})`}
