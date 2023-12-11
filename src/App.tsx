@@ -3,15 +3,18 @@ import { useState } from "react";
 import Board from "./Board";
 import History from "./Moves";
 import "./App.css";
+import { BoardState } from "./lib/types";
 
 function App() {
-	const [history, setHistory] = useState([Array(9).fill(null)]);
+	const [history, setHistory] = useState<BoardState[]>([
+		{ boardState: Array(9).fill(null), moveLocation: null },
+	]);
 	const [moveNumber, setMoveNumber] = useState(0);
 
 	const currentBoardState = history[moveNumber];
 	const currentPlayer = moveNumber % 2 === 0 ? "X" : "O";
 
-	function handlePlay(nextBoardState: string[]) {
+	function handlePlay(nextBoardState: BoardState) {
 		const newHistory = history.slice(0, moveNumber + 1);
 		newHistory.push(nextBoardState);
 		setHistory(newHistory);
@@ -19,7 +22,7 @@ function App() {
 	}
 
 	function handleResetGame() {
-		setHistory([Array(9).fill(null)]);
+		setHistory([{ boardState: Array(9).fill(null), moveLocation: null }]);
 		setMoveNumber(0);
 	}
 
@@ -33,7 +36,7 @@ function App() {
 				{/* Game */}
 				<div>
 					<Board
-						currentBoardState={currentBoardState}
+						currentBoardState={currentBoardState.boardState}
 						onPlay={handlePlay}
 						currentPlayer={currentPlayer}
 					/>
