@@ -23,6 +23,7 @@ function Board({
 	}
 
 	const status = getStatus(currentBoardState, currentPlayer);
+	const winningSquares = calculateWinner(currentBoardState)?.line;
 
 	return (
 		<>
@@ -30,7 +31,9 @@ function Board({
 			<div className="board">
 				{currentBoardState.map((square: string, index: number) => (
 					<button
-						className="square"
+						className={
+							"square" + (winningSquares?.includes(index) ? " win" : "")
+						}
 						onClick={() =>
 							handleClick(index, [Math.floor(index / 3) + 1, (index % 3) + 1])
 						}

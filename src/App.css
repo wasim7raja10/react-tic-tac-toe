@@ -60,3 +60,8 @@
 .list {
 	list-style: none;
 }
+
+.win {
+	background-color: green;
+	color: #fff;
+}

@@ -1,4 +1,6 @@
-export const calculateWinner = (squares: string[]): string | null => {
+export const calculateWinner = (
+	squares: string[]
+): { player: string; line: number[] } | null => {
 	const lines = [
 		[0, 1, 2],
 		[3, 4, 5],
@@ -12,7 +14,7 @@ export const calculateWinner = (squares: string[]): string | null => {
 	for (let i = 0; i < lines.length; i++) {
 		const [a, b, c] = lines[i];
 		if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-			return squares[a];
+			return { player: squares[a], line: lines[i] };
 		}
 	}
 	return null;
@@ -23,7 +25,7 @@ export const calculateDraw = (squares: string[]): boolean => {
 };
 
 export const getStatus = (squares: string[], currentPlayer: string): string => {
-	const winner = calculateWinner(squares);
+	const winner = calculateWinner(squares)?.player;
 	const isDraw = calculateDraw(squares);
 	if (winner) {
 		return `Winner: ${winner}`;
