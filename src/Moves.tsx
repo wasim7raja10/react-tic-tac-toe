@@ -26,9 +26,7 @@ function History({
 	const orderedHistory =
 		order === "ascending" ? history : [...history].reverse();
 
-	const islatestMove = (moveIndex: number) => {
-		return moveIndex === currentMoveIndex;
-	};
+	const islatestMove = (moveIndex: number) => moveIndex === currentMoveIndex;
 
 	const moveIndex = (index: number) => {
 		if (order === "ascending") {
