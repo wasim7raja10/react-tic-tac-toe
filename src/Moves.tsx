@@ -16,20 +16,21 @@ function History({
 				<h6 style={{ fontSize: "1rem" }}>History</h6>
 			</div>
 			<ul className="list">
-				{history
-					.map((_, move) => {
-						return (
-							<li key={move}>
-								{move === (history.length - 1) ? (
-									<b>{`Move #${move}`}</b>
-								) : (
-									<button onClick={() => onJumpTo(move)}>
-										{move === 0 ? "Go to game start" : `Go to move #${move}`}
-									</button>
-								)}
-							</li>
-						);
-					})}
+				{history.map(({ moveLocation }, move) => {
+					return (
+						<li key={move}>
+							{move === history.length - 1 ? (
+								<b>{`Move #${move} - (${moveLocation})`}</b>
+							) : (
+								<button onClick={() => onJumpTo(move)}>
+									{move === 0
+										? "Go to game start"
+										: `Go to move #${move} - (${moveLocation})`}
+								</button>
+							)}
+						</li>
+					);
+				})}
 			</ul>
 		</div>
 	);

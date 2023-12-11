@@ -33,7 +33,7 @@ function Board({
 					<button
 						className="square"
 						onClick={() =>
-							handleClick(index, [Math.floor(index / 3), index % 3])
+							handleClick(index, [Math.floor(index / 3) + 1, (index % 3) + 1])
 						}
 						key={index}
 					>
