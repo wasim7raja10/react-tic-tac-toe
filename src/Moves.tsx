@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BoardState } from "./lib/types";
+import { BoardState, MoveLocation } from "./lib/types";
 
 function History({
 	onJumpTo,
@@ -27,7 +27,6 @@ function History({
 		order === "ascending" ? history : [...history].reverse();
 
 	const islatestMove = (moveIndex: number) => {
-		console.log(moveIndex, currentMoveIndex);
 		return moveIndex === currentMoveIndex;
 	};
 
@@ -36,6 +35,13 @@ function History({
 			return index;
 		}
 		return history.length - 1 - index;
+	};
+
+	const getIndexAndLocation = (moveLocation: MoveLocation, index: number) => {
+		if (moveLocation) {
+			return `#${moveIndex(index)} - (${moveLocation})`;
+		}
+		return `#${moveIndex(index)}`;
 	};
 
 	return (
@@ -49,9 +55,9 @@ function History({
 			<ul className="list">
 				{orderedHistory.map(({ moveLocation }, index) => {
 					return (
-						<li key={moveIndex(index)}>
+						<li key={index}>
 							{islatestMove(moveIndex(index)) ? (
-								<b>{`Move #${moveIndex(index)} - (${moveLocation})`}</b>
+								<b>{`Move ${getIndexAndLocation(moveLocation, index)}`}</b>
 							) : (
 								<button
 									onClick={() => {
@@ -61,7 +67,7 @@ function History({
 								>
 									{moveIndex(index) === 0
 										? "Go to game start"
-										: `Go to move #${moveIndex(index)} - (${moveLocation})`}
+										: `Go to move ${getIndexAndLocation(moveLocation, index)}`}
 								</button>
 							)}
 						</li>
