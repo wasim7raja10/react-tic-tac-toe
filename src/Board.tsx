@@ -1,4 +1,5 @@
 import { calculateWinner } from "./lib/helper";
+import { BoardState, MoveLocation } from "./lib/types";
 
 function Board({
 	currentBoardState,
@@ -6,15 +7,18 @@ function Board({
 	currentPlayer,
 }: {
 	currentBoardState: string[];
-	onPlay: (nextBoardState: string[]) => void;
+	onPlay: (nextBoardState: BoardState) => void;
 	currentPlayer: string;
 }) {
-	function handleClick(index: number) {
+	function handleClick(index: number, moveLocation: MoveLocation) {
 		if (currentBoardState[index] || calculateWinner(currentBoardState)) {
 			return;
 		}
-		const nextBoardState = [...currentBoardState];
-		nextBoardState[index] = currentPlayer;
+		const nextBoardState: BoardState = {
+			boardState: [...currentBoardState],
+			moveLocation,
+		};
+		nextBoardState.boardState[index] = currentPlayer;
 		onPlay(nextBoardState);
 	}
 
@@ -28,7 +32,9 @@ function Board({
 				{currentBoardState.map((square: string, index: number) => (
 					<button
 						className="square"
-						onClick={() => handleClick(index)}
+						onClick={() =>
+							handleClick(index, [Math.floor(index / 3), index % 3])
+						}
 						key={index}
 					>
 						{square}
